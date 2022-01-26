@@ -38,3 +38,13 @@ Things to do
 3. You must have a README.md file in the root, **well formatted in markdown** (like the one you are reading now) that explains your solution.
 4. Use of any extra open-source library or package is allowed.
 5. You must use git and proper git branching model and submit this task on a different branch and send us a pull request from your branch to **main** branch.
+
+### Task Outline
+
+1. Install Laravel project
+2. Create Models and Migrations
+3. Initialize Vue Scaffold
+4. Install Jwt composer package and configure 
+5. Create Auth Controller and its routes
+6. Work on front api - Create methods and validation requests to store Customer Details
+7. Work on admin api - Customer data List, view,edit,update,delete,bulk-delete,undelete,bulk-undelete.
