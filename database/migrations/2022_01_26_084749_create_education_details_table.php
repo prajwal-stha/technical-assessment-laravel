@@ -22,7 +22,7 @@ class CreateEducationDetailsTable extends Migration
             $table->string('grade')->nullable();
             $table->string('start_date');
             $table->string('end_date')->nullable();
-            $table->string('current_status', ['Ongoing', 'Completed'])->default('Completed');
+            $table->enum('current_status', ['Ongoing', 'Completed'])->default('Completed');
             $table->timestamps();
         });
     }
