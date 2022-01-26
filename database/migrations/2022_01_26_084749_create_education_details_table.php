@@ -19,7 +19,7 @@ class CreateEducationDetailsTable extends Migration
             $table->enum('education_type', ['School', 'HighSchool', 'Bachelors', 'Master', 'Phd']);
             $table->string('institution_name');
             $table->string('institution_address');
-            $table->string('grade');
+            $table->string('grade')->nullable();
             $table->string('start_date');
             $table->string('end_date')->nullable();
             $table->string('current_status', ['Ongoing', 'Completed'])->default('Completed');

@@ -23,6 +23,7 @@ class CreateCustomerDetailsTable extends Migration
             $table->string('address');
             $table->string('nationality');
             $table->enum('preferred_contact_mode', ['Email', 'Phone', 'Both', 'None']);
+            $table->uuid('guid');
             $table->softDeletes();
             $table->timestamps();
         });
