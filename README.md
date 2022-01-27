@@ -48,3 +48,4 @@ Things to do
 5. Create Auth Controller and its routes
 6. Work on front api - Create methods and validation requests to store Customer Details
 7. Work on admin api - Customer data List, view,edit,update,delete,bulk-delete,undelete,bulk-undelete.
+8. Create new route file for admin api's and register route file to RouteServiceProvider

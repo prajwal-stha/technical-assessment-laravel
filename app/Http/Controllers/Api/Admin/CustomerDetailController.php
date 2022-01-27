@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\CustomerDetailRequest;
 use App\Repositories\CustomerDetailRepository;
 use Illuminate\Http\JsonResponse;
+use Illuminate\Http\Request;
 
 class CustomerDetailController extends Controller
 {
@@ -63,11 +64,12 @@ class CustomerDetailController extends Controller
     }
 
     /**
-     * @param $guid
+     * @param Request $request
      * @return JsonResponse
      */
-    public function deleteCustomerDetails($guid): JsonResponse
+    public function deleteCustomerDetails(Request $request): JsonResponse
     {
+        $guid = $request->get('guid');
         if (is_array($guid)) {
             $deleteCustomerDetail = $this->repository->customerDetailsBulkDelete($guid);
         } else {
@@ -81,11 +83,12 @@ class CustomerDetailController extends Controller
     }
 
     /**
-     * @param $guid
+     * @param Request $request
      * @return JsonResponse
      */
-    public function restoreCustomerDetails($guid): JsonResponse
+    public function restoreCustomerDetails(Request $request): JsonResponse
     {
+        $guid = $request->get('guid');
         if (is_array($guid)) {
             $restoreCustomerDetail = $this->repository->bulkRestoreCustomerDetails($guid);
         } else {
