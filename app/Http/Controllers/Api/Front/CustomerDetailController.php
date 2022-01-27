@@ -5,20 +5,24 @@ namespace App\Http\Controllers\Api\Front;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\CustomerDetailRequest;
 use App\Repositories\CustomerDetailRepository;
-use Illuminate\Http\Request;
+use Illuminate\Http\JsonResponse;
 
 class CustomerDetailController extends Controller
 {
-    public $repo;
+    public $repository;
 
-    public function __construct(CustomerDetailRepository $repo)
+    public function __construct(CustomerDetailRepository $repository)
     {
-        $this->repo = $repo;
+        $this->repository = $repository;
     }
 
-    public function store(CustomerDetailRequest $request): \Illuminate\Http\JsonResponse
+    /**
+     * @param CustomerDetailRequest $request
+     * @return JsonResponse
+     */
+    public function store(CustomerDetailRequest $request): JsonResponse
     {
-        $storeRequest = $this->repo->storeCustomerDetail($request->all());
+        $storeRequest = $this->repository->storeCustomerDetail($request->all());
         if ($storeRequest['status']) {
             return response()->json($storeRequest, 200);
         } else {

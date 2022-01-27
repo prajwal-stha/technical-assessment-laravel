@@ -19,10 +19,11 @@ class EducationDetail extends Model
         'grade',
         'start_date',
         'end_date',
-        'current_status'
+        'current_status',
+        'guid'
     ];
 
-    public function customer_detail()
+    public function customer_detail(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
         return $this->belongsTo('App\Models\CustomerDetail', 'customer_detail_id');
     }
