@@ -173,10 +173,10 @@ class CustomerDetailRepository
                 if (isset($education_detail['guid'])) {
                     $education = $this->education->query()->where('guid', $education_detail['guid'])->first();
                     if ($education) {
-                        $education->update($this->formatEducationDetailsParams((array)$education, 'update'));
-                    } else {
-                        $customerDetail->$education_detail->create($this->formatEducationDetailsParams((array)$education, 'update'));
+                        $education->update($this->formatEducationDetailsParams($education_detail, 'update'));
                     }
+                } else {
+                    $customerDetail->education_details()->create($this->formatEducationDetailsParams($education_detail, 'create'));
                 }
             }
             DB::commit();

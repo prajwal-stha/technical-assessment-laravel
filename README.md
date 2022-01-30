@@ -49,3 +49,19 @@ Things to do
 6. Work on front api - Create methods and validation requests to store Customer Details
 7. Work on admin api - Customer data List, view,edit,update,delete,bulk-delete,undelete,bulk-undelete.
 8. Create new route file for admin api's and register route file to RouteServiceProvider
+9. Create vue front panel and form.
+10. Create Login page
+11. Create admin panel
+12. Create pagination component
+13. create review page
+14. integrate all apis
+
+
+### project setup
+1. pull project from github
+2. run composer install and npm install inside project directory
+3. Mysql is used for database, so create a database and configure it in .env file.
+4. Run php artisan key:generate and php artisan jwt:secret(for JWT token)
+5. Run php artisan migrate and php artisan db:seed or php artisan migrate --seed
+6. Run php artisan serve to server the api's and npm run watch to run the vue server.
+7. Default admin user credentials are: admin@admin.com and password is 123456789

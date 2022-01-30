@@ -419,7 +419,7 @@ export default {
                 institution_address: '',
                 start_date: '',
                 current_status: null,
-                end_date: "0000-00-00",
+                end_date: null,
                 grade: null,
             })
         },
@@ -432,13 +432,17 @@ export default {
             }
         },
         removeEducationDetails(guid, index) {
+            console.log(guid);
             this.customerDetails.education_details.splice(index, 1);
-            axios.delete(`/api/admin/education-detail/delete/${guid}`)
-                .then((response) => {
-                    toastr.success(response.data.message);
-                }).catch((error) => {
-                helper.showErrorMsg(error);
-            })
+            if (guid !== undefined){
+                axios.delete(`/api/admin/education-detail/delete/${guid}`)
+                    .then((response) => {
+                        toastr.success(response.data.message);
+                    }).catch((error) => {
+                    helper.showErrorMsg(error);
+                })
+            }
+
         }
     }
 }

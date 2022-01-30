@@ -423,7 +423,7 @@ export default {
                                     institution_address: null,
                                     start_date: null,
                                     current_status: null,
-                                    end_date: null,
+                                    end_date: "2022-01-06",
                                     grade: null,
                                 }
                             ]
@@ -454,7 +454,7 @@ export default {
                 institution_address: '',
                 start_date: '',
                 current_status: null,
-                end_date: null,
+                end_date: "2022-01-06",
                 grade: null,
             })
         },
