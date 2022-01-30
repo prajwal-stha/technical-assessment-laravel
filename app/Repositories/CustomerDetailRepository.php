@@ -41,7 +41,7 @@ class CustomerDetailRepository
         $preferred_contact_mode = $params['preferred_contact_mode'] ?? null;
         $created_at_start_date = $params['created_at_start_date'] ?? null;
         $created_at_end_date = $params['created_at_end_date'] ?? null;
-        $trashedRequests = $params['$trashed_requests'] ?? false;
+        $trashedRequests = $params['trashed'] == 'true' ? true : false;
         $query = $this->model->query();
         if ($trashedRequests) {
             $query = $this->model->onlyTrashed();
@@ -50,7 +50,7 @@ class CustomerDetailRepository
             ->filterByEmail($email)
             ->filterByPhone($phone)
             ->filterByAddress($address)
-            ->filterBy($nationality)
+            ->filterByNationality($nationality)
             ->filterByPreferredContactMode($preferred_contact_mode)
             ->createdAtDateBetween([
                 'start_date' => $created_at_start_date,
@@ -120,20 +120,22 @@ class CustomerDetailRepository
      */
     private function formatEducationDetailsParams(array $params, string $type): array
     {
-        $params = [
+        $format = [
             'education_type' => $params['education_type'],
             'institution_name' => $params['institution_name'],
             'institution_address' => $params['institution_address'],
-            'grade' => $params['grade'],
             'start_date' => $params['start_date'],
-            'end_date' => $params['end_date'],
             'current_status' => $params['current_status']
         ];
-        if ($type == 'create') {
-            $params['guid'] = Str::uuid();
-        }
+        if ($params['current_status'] == "Completed") {
+            $format['end_date'] = $params['end_date'];
+            $format['grade'] = $params['grade'];
 
-        return $params;
+        }
+        if ($type == 'create') {
+            $format['guid'] = Str::uuid();
+        }
+        return $format;
     }
 
     /**
@@ -169,7 +171,7 @@ class CustomerDetailRepository
             $customerDetail->update($this->formatParams($params, 'update'));
             foreach ($params['education_details'] as $education_detail) {
                 if (isset($education_detail['guid'])) {
-                    $education = $this->education->query()->where('guid', $guid)->first();
+                    $education = $this->education->query()->where('guid', $education_detail['guid'])->first();
                     if ($education) {
                         $education->update($this->formatEducationDetailsParams((array)$education, 'update'));
                     } else {
@@ -201,7 +203,7 @@ class CustomerDetailRepository
         $customerDetail = $this->model->query()->where('guid', $guid)->with('education_details')->first();
 
         if (!$customerDetail) {
-            throwException(ValidationException::withMessages(['message' => 'The record you are looking for does not exist']));
+            throw ValidationException::withMessages(['message' => 'The record you are looking for does not exist']);
         }
 
         return $customerDetail;

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use function auth;
@@ -69,7 +70,22 @@ class AuthController extends Controller
             'access_token' => $token,
             'token_type' => 'bearer',
             'expires_in' => auth()->factory()->getTTL() * 60,
-            'user' => auth()->user()
+            'user' => auth()->user(),
+            'message' => 'Login Success.'
         ]);
+    }
+
+    public function check()
+    {
+        try {
+            $user = auth()->userOrFail();
+            $auth_user = auth()->user();
+            return response()->json([
+                'authenticated' => true,
+                'user' => auth()->user(),
+            ], 200);
+        } catch (\Tymon\JWTAuth\Exceptions\UserNotDefinedException $e) {
+            return response()->json(['authenticated' => false], 401);
+        }
     }
 }

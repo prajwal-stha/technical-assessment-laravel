@@ -1,32 +1,35 @@
+import Vue from 'vue'
+import VueRouter from 'vue-router'
+import axios from 'axios'
+import helper from './services/helper'
+import paginationRecord from './components/PaginateRecords'
+import './validation/index';
+import DatePicker from "vue2-datepicker";
+import 'vue2-datepicker/index.css';
+window.Vue = Vue;
+
+Vue.use(VueRouter);
+
+window.axios = axios;
+window.helper = helper;
+
+Vue.component('pagination-record', paginationRecord);
+Vue.component('DatePicker', DatePicker);
+
 window._ = require('lodash');
 
 try {
     require('bootstrap');
-} catch (e) {}
-
-/**
- * We'll load the axios HTTP library which allows us to easily issue requests
- * to our Laravel back-end. This library automatically handles sending the
- * CSRF token as a header based on the value of the "XSRF" token cookie.
- */
-
-window.axios = require('axios');
+} catch (e) {
+}
 
 window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
+window.axios.defaults.headers.common['Authorization'] = 'Bearer ' + localStorage.getItem('auth_token');
 
-/**
- * Echo exposes an expressive API for subscribing to channels and listening
- * for events that are broadcast by Laravel. Echo and event broadcasting
- * allows your team to easily build robust real-time web applications.
- */
+let token = document.head.querySelector('meta[name="csrf-token"]');
 
-// import Echo from 'laravel-echo';
-
-// window.Pusher = require('pusher-js');
-
-// window.Echo = new Echo({
-//     broadcaster: 'pusher',
-//     key: process.env.MIX_PUSHER_APP_KEY,
-//     cluster: process.env.MIX_PUSHER_APP_CLUSTER,
-//     forceTLS: true
-// });
+if (token) {
+    window.axios.defaults.headers.common['X-CSRF-TOKEN'] = token.content;
+} else {
+    console.error('CSRF token not found: https://laravel.com/docs/csrf#csrf-x-csrf-token');
+}

@@ -64,17 +64,26 @@ class CustomerDetailController extends Controller
     }
 
     /**
+     * @param string $guid
+     * @return JsonResponse
+     */
+    public function deleteCustomerDetails(string $guid): JsonResponse
+    {
+        $deleteEducationDetail = $this->repository->deleteCustomerDetails($guid);
+        if ($deleteEducationDetail['status']) {
+            return response()->json($deleteEducationDetail, 200);
+        } else {
+            return response()->json($deleteEducationDetail, 422);
+        }
+    }
+
+    /**
      * @param Request $request
      * @return JsonResponse
      */
-    public function deleteCustomerDetails(Request $request): JsonResponse
+    public function bulkDeleteCustomerDetails(Request $request): JsonResponse
     {
-        $guid = $request->get('guid');
-        if (is_array($guid)) {
-            $deleteCustomerDetail = $this->repository->customerDetailsBulkDelete($guid);
-        } else {
-            $deleteCustomerDetail = $this->repository->deleteCustomerDetails($guid);
-        }
+        $deleteCustomerDetail = $this->repository->customerDetailsBulkDelete($request->get('guids'));
         if ($deleteCustomerDetail['status']) {
             return response()->json($deleteCustomerDetail, 200);
         } else {
@@ -83,17 +92,26 @@ class CustomerDetailController extends Controller
     }
 
     /**
+     * @param string $guid
+     * @return JsonResponse
+     */
+    public function restoreCustomerDetails(string $guid): JsonResponse
+    {
+        $restoreCustomerDetail = $this->repository->restoreCustomerDetail($guid);
+        if ($restoreCustomerDetail['status']) {
+            return response()->json($restoreCustomerDetail, 200);
+        } else {
+            return response()->json($restoreCustomerDetail, 422);
+        }
+    }
+
+    /**
      * @param Request $request
      * @return JsonResponse
      */
-    public function restoreCustomerDetails(Request $request): JsonResponse
+    public function bulkRestoreCustomerDetails(Request $request): JsonResponse
     {
-        $guid = $request->get('guid');
-        if (is_array($guid)) {
-            $restoreCustomerDetail = $this->repository->bulkRestoreCustomerDetails($guid);
-        } else {
-            $restoreCustomerDetail = $this->repository->restoreCustomerDetail($guid);
-        }
+        $restoreCustomerDetail = $this->repository->bulkRestoreCustomerDetails($request->get('guids'));
         if ($restoreCustomerDetail['status']) {
             return response()->json($restoreCustomerDetail, 200);
         } else {

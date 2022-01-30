@@ -12,7 +12,6 @@ use Illuminate\Support\Facades\Route;
 | contains the "web" middleware group. Now create something great!
 |
 */
-
-Route::get('/', function () {
+Route::get('/{vue?}', function () {
     return view('welcome');
-});
+})->where('vue', '[\/\w\.-]*')->name('welcome');

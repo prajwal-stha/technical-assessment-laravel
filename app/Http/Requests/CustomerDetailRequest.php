@@ -38,7 +38,7 @@ class CustomerDetailRequest extends FormRequest
             'education_details.*.current_status' => 'required|in:Ongoing,Completed',
             'education_details.*.grade' => 'required_if:current_status,Completed',
             'education_details.*.start_date' => 'required|date',
-            'education_details.*.end_date' => 'required_if:current_status,Completed|date',
+            'education_details.*.end_date' => 'nullable|required_if:current_status,Completed|date',
         ];
     }
 }

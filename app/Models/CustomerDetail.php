@@ -19,7 +19,8 @@ class CustomerDetail extends Model
         'date_of_birth',
         'address',
         'nationality',
-        'preferred_contact_mode'
+        'preferred_contact_mode',
+        'guid'
     ];
 
     //relationships
