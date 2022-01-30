@@ -407,27 +407,7 @@ export default {
                     .then((response) => {
                         toastr.success(response.data.message);
                         this.loading = false;
-                        this.customerDetails = {
-                            name: null,
-                            email: null,
-                            phone: null,
-                            gender: null,
-                            date_of_birth: null,
-                            address: null,
-                            nationality: null,
-                            preferred_contact_mode: null,
-                            education_details: [
-                                {
-                                    education_type: null,
-                                    institution_name: null,
-                                    institution_address: null,
-                                    start_date: null,
-                                    current_status: null,
-                                    end_date: "2022-01-06",
-                                    grade: null,
-                                }
-                            ]
-                        }
+                        this.$router.go(0);
                     }).catch((error) => {
                     this.loading = false;
                     this.$refs.observer.setErrors(error);

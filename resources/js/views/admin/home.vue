@@ -231,7 +231,7 @@ export default {
                         toastr.success(response.data.message);
                         this.getCustomerDetails();
                         this.all_select = false;
-                        this.deleteableGuids = null;
+                        this.deleteableGuids = [];
                     }).catch((error) => {
                     helper.showErrorMsg(error);
                 })
@@ -258,7 +258,7 @@ export default {
                     .then((response) => {
                         toastr.success(response.data.message);
                         this.getCustomerDetails();
-                        this.deleteableGuids = null;
+                        this.deleteableGuids = [];
                         this.all_select = false;
                         this.filter.trashed = true;
                     }).catch((error) => {

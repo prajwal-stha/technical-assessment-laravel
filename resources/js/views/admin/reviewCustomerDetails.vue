@@ -394,10 +394,10 @@ export default {
                     .then((response) => {
                         toastr.success(response.data.message);
                         this.loading = false;
+                        this.fetchCustomerDetail();
                     }).catch((error) => {
                     this.loading = false;
                     this.$refs.observer.setErrors(error);
-                    console.log(error.response);
                     helper.showErrorMsg(error)
                 })
             } else {
